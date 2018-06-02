@@ -1,20 +1,80 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<h1>fuber</h1>
+<div class="card">
+  <h4>Available Cabs</h4>
+  <div class="card-container">
+    <div class="card fit-content" *ngFor="let cab of cabs">
+      <p>{{cab.licensePlateNumber}}</p>
+      <p>{{cab.location.latitude}}, {{cab.location.longitude}}</p>
+      <p>{{cab.cabType}}</p>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<div class="card">
+  <h4>Active Rides</h4>
+  <div class="card-container">
+    <div class="card fit-content" *ngFor="let ride of rides">
+      <p>
+        <strong>{{ride.cab.licensePlateNumber}}</strong>
+      </p>
+      <p>
+        <strong>OTP : </strong>{{ride.otp}}
+      </p>
+      <p>
+        <strong>Status : </strong>{{ride.status}}
+      </p>
+      <p>
+        <strong>Cab Type : </strong>{{ride.cab.cabType}}</p>
+      <div *ngIf="ride.status=='STARTED'">
+        <h4>End Ride</h4>
+        <form (ngSubmit)="endRide(endForm.value, ride)" #endForm="ngForm">
+          Drop Location:
+          <br>
+          <input type="text" placeholder="latitude" name="latitude" ngModel>
+          <br>
+          <input type="text" placeholder="longitude" name="longitude" ngModel>
+          <br> Distance:&nbsp;
+          <input type="text" placeholder="Distance" name="distance" ngModel>
+          <br>
+          <button>End Ride</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-container">
+  <div class="card fit-content">
+    <h4> Book a Ride </h4>
+    <form (ngSubmit)="bookRide(bookForm.value)" #bookForm="ngForm">
+      Cab Type:&nbsp;
+      <select name="cabType" ngModel>
+        <option value="ALL">All</option>
+        <option value="NORMAL">Normal</option>
+        <option value="PINK">Pink</option>
+      </select>
+      &nbsp;&nbsp;Pickup Location:&nbsp;
+      <input type="text" placeholder="latitude" name="latitude" ngModel>
+      <input type="text" placeholder="longitude" name="longitude" ngModel>
+      <button>Book</button>
+    </form>
+    <pre>
+      End User will select Cab type and hit Book.
+      location will be fetch by GPS.
+      
+      but for now you need to enter coordinates.
+    </pre>
+  </div>
+
+  <div class="card fit-content">
+    <h4>Start Ride</h4>
+    <form (ngSubmit)="startRide(startForm.value)" #startForm="ngForm">
+      <input type="text" placeholder="OTP" name="otp" ngModel>
+      <button>Start Ride</button>
+    </form>
+    <pre>
+      Cab Driver will enter OTP
+      to start the ride.
+    </pre>
+  </div>
+
+</div>
