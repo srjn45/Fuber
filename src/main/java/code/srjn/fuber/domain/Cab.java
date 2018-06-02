@@ -1,10 +1,20 @@
 package code.srjn.fuber.domain;
 
+/**
+ * this class hold the info of the cab(type, location etc.)
+ * 
+ * later on cabby info can also be added
+ * 
+ * @author Srajan
+ *
+ */
 public class Cab {
 
 	private String licensePlateNumber;
 	private CabType cabType;
 	private Location location;
+
+	// other info like cabby name, details and rating etc.
 
 	public Cab() {
 		super();
