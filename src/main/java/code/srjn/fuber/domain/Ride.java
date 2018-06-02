@@ -1,8 +1,24 @@
 package code.srjn.fuber.domain;
 
+/**
+ * this class contains the info of a user riding a cab and traveling from point
+ * A to B
+ * 
+ * As SelectionKey is created when a Channel is registered on Selector similarly
+ * a Ride is created when a User books a Cab.
+ * 
+ * Ride contains info of both User and the Cab and also the info like distance
+ * traveled pickup and drop points.
+ * 
+ * This can be dumped into DB to maintain the record of the Users old rides.
+ * 
+ * @author Srajan
+ *
+ */
 public class Ride {
 
 	private int otp;
+	private User user;
 	private Cab cab;
 	private CabType cabType;
 	private Location pickupLocation;
@@ -15,6 +31,14 @@ public class Ride {
 
 	public void setOtp(int otp) {
 		this.otp = otp;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Cab getCab() {
@@ -59,8 +83,8 @@ public class Ride {
 
 	@Override
 	public String toString() {
-		return "Ride [otp=" + otp + ", cab=" + cab + ", cabType=" + cabType + ", pickupLocation=" + pickupLocation
-				+ ", dropLocation=" + dropLocation + ", distance=" + distance + "]";
+		return "Ride [otp=" + otp + ", user=" + user + ", cab=" + cab + ", cabType=" + cabType + ", pickupLocation="
+				+ pickupLocation + ", dropLocation=" + dropLocation + ", distance=" + distance + "]";
 	}
 
 }
