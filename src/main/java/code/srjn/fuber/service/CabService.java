@@ -13,6 +13,25 @@ import code.srjn.fuber.domain.CabType;
 import code.srjn.fuber.domain.Location;
 import code.srjn.fuber.domain.Ride;
 
+/**
+ * Cab service maintains the list of all the cabs they have, it can be fetched
+ * from the DB as well.
+ * 
+ * when a user books a cab it first filters the cab on the basis of the type
+ * user selected then tries to find the closest cab and books it removing it
+ * from availableCabs.
+ * 
+ * ride details are returned to the user along with otp (cabby can be notified
+ * using push notification, currently not in scope as no DB)
+ * 
+ * on pickup cabby will enter otp and the ride will start
+ * 
+ * on drop cabby will end ride and the final fare will be calculated and
+ * returned to cabby and can also be pushed to user using push notification.
+ * 
+ * @author Srajan
+ *
+ */
 @Service
 public class CabService {
 
@@ -20,7 +39,6 @@ public class CabService {
 	private Map<Integer, Ride> rideMap = new HashMap<>();
 
 	private static List<Cab> availableCabs = new LinkedList<>();
-	private static List<Cab> bookedCabs = new LinkedList<>();
 
 	// for now hardcoded in real data loaded from database
 	static {
@@ -39,8 +57,8 @@ public class CabService {
 	 * user will call this method along with pickup location and cab type and
 	 * the nearest cab will be assigned, and the otp will be sent to the user
 	 * 
-	 * @param user
-	 * @return
+	 * @param ride
+	 * @return ride with cab or null if no cab found
 	 */
 	public Ride bookRide(Ride ride) {
 		Cab bookCab = null;
@@ -57,9 +75,11 @@ public class CabService {
 					distance = d;
 				}
 			}
+			if (bookCab == null) {
+				return null;
+			}
 			availableCabs.remove(bookCab);
 		}
-		bookedCabs.add(bookCab);
 		ride.setCab(bookCab);
 		ride.setOtp((int) (System.currentTimeMillis() % 10000));
 		// ride booked
@@ -90,8 +110,6 @@ public class CabService {
 	public double endRide(Ride ride) {
 		rideMap.remove(ride.getOtp());
 		Cab cab = ride.getCab();
-		// remove cab from booked cabs list
-		bookedCabs.remove(cab);
 		// update the location of cab to the drop location
 		cab.setLocation(ride.getDropLocation());
 		// add the cab back to the available cab list
