@@ -12,6 +12,7 @@ import code.srjn.fuber.domain.Cab;
 import code.srjn.fuber.domain.CabType;
 import code.srjn.fuber.domain.Location;
 import code.srjn.fuber.domain.Ride;
+import code.srjn.fuber.domain.RideStatus;
 
 /**
  * Cab service maintains the list of all the cabs they have, it can be fetched
@@ -35,8 +36,8 @@ import code.srjn.fuber.domain.Ride;
 @Service
 public class CabService {
 
-	// otp, ride
-	private Map<Integer, Ride> rideMap = new HashMap<>();
+	// Map<otp, ride>
+	private static Map<Integer, Ride> rideMap = new HashMap<>();
 
 	private static List<Cab> availableCabs = new LinkedList<>();
 
@@ -82,6 +83,7 @@ public class CabService {
 		}
 		ride.setCab(bookCab);
 		ride.setOtp((int) (System.currentTimeMillis() % 10000));
+		ride.setStatus(RideStatus.ON_THE_WAY);
 		// ride booked
 		rideMap.put(ride.getOtp(), ride);
 		// as the ride is booked the cabby will be notified
@@ -95,7 +97,9 @@ public class CabService {
 	 * @return
 	 */
 	public Ride startRide(int otp) {
-		return rideMap.get(otp);
+		Ride ride = rideMap.get(otp);
+		ride.setStatus(RideStatus.STARTED);
+		return ride;
 	}
 
 	/**
@@ -108,6 +112,7 @@ public class CabService {
 	 * @return
 	 */
 	public double endRide(Ride ride) {
+		ride.setStatus(RideStatus.ENDED);
 		rideMap.remove(ride.getOtp());
 		Cab cab = ride.getCab();
 		// update the location of cab to the drop location
@@ -120,7 +125,7 @@ public class CabService {
 		// calc fare
 		double fare = 0;
 		// extra 5 dogecoin for pink cab
-		if (cab.getCabType().getType().equals(CabType.PINK)) {
+		if (cab.getCabType().getType().equals(CabType.PINK.getType())) {
 			fare += 5;
 		}
 		// 2 dogecoin per km
