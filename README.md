@@ -53,3 +53,13 @@ füber, an on call taxi service.
 > to calculate smallest distance pythagoras theorem is used.
 
 > to calc fare 2 times the distance(km) traveled and for PINK cabs extra 5 dogecoin. 
+
+## Build
+
+> to build and run execute build.bat or build.sh file.
+
+> first angular is build and the build files are kept in static folder under resources.
+
+> after that java is build using gradle and then the jar is executed using java -jar command.
+
+> Note: for first time after clone or whenever package.json is updated you will need to run npm install inside FuberGUI folder
