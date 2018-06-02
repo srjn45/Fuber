@@ -26,8 +26,27 @@ public class FuberRestController {
 		return response;
 	}
 
+	@RequestMapping(path = "/cabs", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public @ResponseBody Response getAvailableCabs() {
+		System.out.println("/api/cabs");
+		Response response = new Response();
+		response.setStatus(true);
+		response.setPayload(CabService.getAvailableCabs());
+		return response;
+	}
+
+	@RequestMapping(path = "/rides", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public @ResponseBody Response getRides() {
+		System.out.println("/api/rides");
+		Response response = new Response();
+		response.setStatus(true);
+		response.setPayload(CabService.getRides());
+		return response;
+	}
+
 	@RequestMapping(path = "/ride/book", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	public @ResponseBody Response bookRide(@RequestBody Ride ride) {
+		System.out.println("/api/ride/book : " + ride);
 		Response response = new Response();
 		if (cabService.bookRide(ride) != null) {
 			response.setStatus(true);
@@ -41,9 +60,19 @@ public class FuberRestController {
 
 	@RequestMapping(path = "/ride/start", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	public @ResponseBody Response startRide(@RequestBody Ride ride) {
+		System.out.println("/api/ride/start : " + ride);
 		Response response = new Response();
 		response.setStatus(true);
 		response.setPayload(cabService.startRide(ride.getOtp()));
+		return response;
+	}
+
+	@RequestMapping(path = "/ride/end", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	public @ResponseBody Response endRide(@RequestBody Ride ride) {
+		System.out.println("/api/ride/end : " + ride);
+		Response response = new Response();
+		response.setStatus(true);
+		response.setMessage("Fare : " + cabService.endRide(ride) + " dogecoin");
 		return response;
 	}
 
