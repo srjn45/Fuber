@@ -6,6 +6,17 @@ public class Cab {
 	private CabType cabType;
 	private Location location;
 
+	public Cab() {
+		super();
+	}
+
+	public Cab(String licensePlateNumber, CabType cabType, Location location) {
+		super();
+		this.licensePlateNumber = licensePlateNumber;
+		this.cabType = cabType;
+		this.location = location;
+	}
+
 	public String getLicensePlateNumber() {
 		return licensePlateNumber;
 	}
