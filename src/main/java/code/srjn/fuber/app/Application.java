@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 
 @SpringBootApplication
-@ComponentScans({ @ComponentScan("code.srjn.fuber.rest") })
+@ComponentScans({ @ComponentScan("code.srjn.fuber.rest"), @ComponentScan("code.srjn.fuber.service") })
 public class Application {
 
 	public static void main(String[] args) {
