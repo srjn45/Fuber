@@ -1,5 +1,6 @@
 package code.srjn.fuber.service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +51,14 @@ public class CabService {
 		availableCabs.add(new Cab("MP 09 AS 9535", CabType.PINK, new Location(4, 0)));
 		availableCabs.add(new Cab("MP 09 AS 6585", CabType.PINK, new Location(14, 54)));
 		availableCabs.add(new Cab("MP 09 VR 2457", CabType.NORMAL, new Location(26, 31)));
+	}
+
+	public static List<Cab> getAvailableCabs() {
+		return availableCabs;
+	}
+
+	public static Collection<Ride> getRides() {
+		return rideMap.values();
 	}
 
 	/**
