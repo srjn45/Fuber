@@ -40,7 +40,13 @@ public class Cab {
 	}
 
 	public void setCabType(CabType cabType) {
-		this.cabType = cabType;
+			this.cabType = cabType;
+	}
+
+	public void setCabType(String cabType) {
+		if (cabType != null) {
+			this.cabType = CabType.valueOf(cabType);
+		}
 	}
 
 	public Location getLocation() {

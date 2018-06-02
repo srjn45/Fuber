@@ -62,6 +62,12 @@ public class Ride {
 		this.cabType = cabType;
 	}
 
+	public void setCabType(String cabType) {
+		if (cabType != null) {
+			this.cabType = CabType.valueOf(cabType);
+		}
+	}
+
 	public Location getPickupLocation() {
 		return pickupLocation;
 	}
@@ -84,6 +90,12 @@ public class Ride {
 
 	public void setStatus(RideStatus status) {
 		this.status = status;
+	}
+
+	public void setStatus(String status) {
+		if (status != null) {
+			this.status = RideStatus.valueOf(status);
+		}
 	}
 
 	public double getDistance() {
