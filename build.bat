@@ -1,0 +1,1 @@
+cd src\main\FuberGUI && ng build --prod && cd ..\..\..\ && gradle build && java -jar build\libs\fuber-0.1.jar
