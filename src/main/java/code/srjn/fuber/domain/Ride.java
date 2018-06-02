@@ -23,7 +23,12 @@ public class Ride {
 	private CabType cabType;
 	private Location pickupLocation;
 	private Location dropLocation;
+	private RideStatus status;
 	private double distance;
+
+	public Ride() {
+		status = RideStatus.SEARCHING;
+	}
 
 	public int getOtp() {
 		return otp;
@@ -73,6 +78,14 @@ public class Ride {
 		this.dropLocation = dropLocation;
 	}
 
+	public RideStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(RideStatus status) {
+		this.status = status;
+	}
+
 	public double getDistance() {
 		return distance;
 	}
@@ -84,7 +97,8 @@ public class Ride {
 	@Override
 	public String toString() {
 		return "Ride [otp=" + otp + ", user=" + user + ", cab=" + cab + ", cabType=" + cabType + ", pickupLocation="
-				+ pickupLocation + ", dropLocation=" + dropLocation + ", distance=" + distance + "]";
+				+ pickupLocation + ", dropLocation=" + dropLocation + ", status=" + status + ", distance=" + distance
+				+ "]";
 	}
 
 }
