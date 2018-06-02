@@ -1,0 +1,15 @@
+.card-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0px 1px 1px 0px grey;
+}
+
+.fit-content {
+    display: inline-block;
+}
