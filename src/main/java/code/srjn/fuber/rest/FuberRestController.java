@@ -1,13 +1,12 @@
 package code.srjn.fuber.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import code.srjn.fuber.domain.CabType;
-import code.srjn.fuber.domain.Location;
 import code.srjn.fuber.domain.Ride;
 import code.srjn.fuber.model.Response;
 import code.srjn.fuber.service.CabService;
@@ -27,15 +26,24 @@ public class FuberRestController {
 		return response;
 	}
 
-	@RequestMapping(path = "/book", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public @ResponseBody Response bookRide() {
+	@RequestMapping(path = "/ride/book", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	public @ResponseBody Response bookRide(@RequestBody Ride ride) {
+		Response response = new Response();
+		if (cabService.bookRide(ride) != null) {
+			response.setStatus(true);
+			response.setPayload(ride);
+		} else {
+			response.setStatus(false);
+			response.setMessage("No Cab Found");
+		}
+		return response;
+	}
+
+	@RequestMapping(path = "/ride/start", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	public @ResponseBody Response startRide(@RequestBody Ride ride) {
 		Response response = new Response();
 		response.setStatus(true);
-		response.setMessage("Book Ride.");
-		Ride ride = new Ride();
-		ride.setCabType(CabType.ALL);
-		ride.setPickupLocation(new Location(3, 6));
-		response.setPayload(cabService.bookRide(ride));
+		response.setPayload(cabService.startRide(ride.getOtp()));
 		return response;
 	}
 
