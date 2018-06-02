@@ -1,5 +1,11 @@
 package code.srjn.fuber.domain;
 
+/**
+ * enum for type of cabs
+ * 
+ * @author Srajan
+ *
+ */
 public enum CabType {
 	ALL("all"), NORMAL("normal"), PINK("pink");
 

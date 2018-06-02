@@ -1,5 +1,12 @@
 package code.srjn.fuber.domain;
 
+/**
+ * this class contains latitude and longitude and can calculate distance between
+ * to points
+ * 
+ * @author Srajan
+ *
+ */
 public class Location {
 
 	private double latitude;
