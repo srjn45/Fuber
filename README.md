@@ -63,3 +63,50 @@ füber, an on call taxi service.
 > after that java is build using gradle and then the jar is executed using java -jar command.
 
 > Note: for first time after clone or whenever package.json is updated you will need to run npm install inside FuberGUI folder
+
+
+## Problem n Solution Provided
+
+> You have a fleet of cabs at your disposal, and each cab has a location, determined by it’s latitude and longitude.
+
+- all the available cabs are maintained in availablecabs List
+
+- cab contains info like licensePlateNumber, cabType and location
+
+> A customer can call one of your taxis by providing their location, and you must assign the nearest taxi to the customer.
+
+> Some customers are particular that they only ride around in pink cars, for hipster reasons. You must support this ability.
+
+- customer can call the cab bay selecting cab type (ALL, NORMAL, PINK) and providing there location
+
+- the nearest cab in the selected category is assigned. this cab is removed from the availableCabs List.
+
+> When the cab is assigned to the customer, it can no longer pick up any other customers
+
+- as the cab no longer exist in the availableCabs list so it can not be booked.
+
+- only the available cabs can be booked.
+
+> If there are no taxis available, you reject the customer's request.
+
+- if no cab is available in the selected category then No Cab Available message is returned.
+
+> The customer ends the ride at some location. The cab waits around outside the customer’s house, and is available to be assigned to another customer.
+
+- instead of providing this feature to customer we have provided it ti cabby. As after analyzing current system in place if this feature resides with cabby it will be better, as customer can end the ride sooner before reaching the destination (which can lead to conflicts) whereas a cabby will not like to lose money and will end the ride only on reaching the destination.
+
+- after ending the ride cab stands by at the new location for new booking.
+
+> When the customer ends the ride, log the total amount the customer owes. The price is 1 dogecoin per minute, and 2 dogecoin per kilometer. Pink cars cost an additional 5 dogecoin.
+
+- the total fare is calculated, on the basis of distance travelled during the ride.
+
+- Cab rate : 2 dogecoins/km
+
+- for PINK cab extra 5 dogecoins are charged.
+
+> HTML front end showing me all the cars available
+
+- both available cabs and current active rides are listed on GUI.
+
+- also book, start and end ride forms are provided to test the REST apis.
